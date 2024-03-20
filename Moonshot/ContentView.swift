@@ -74,13 +74,16 @@ struct ContentView: View {
             NavigationStack {
                 List{
                     ScrollView{
-                        ForEach(missions) { mission in
-                            NavigationLink {
-                                MissionView(mission: mission, astronauts: astronauts)
-                            } label: {
-                                Text(mission.displayName)
+                        
+//                        CHALLENGE 3
+                        NavigationStack{
+                            ForEach(missions) { mission in
+                                NavigationLink("\(mission.displayName)", value: mission.displayName)
+                                    .navigationDestination(for: String.self) { selection in
+                                        MissionView(mission: mission, astronauts: astronauts)
+                                    }
+                                .padding(5)
                             }
-                            .padding(5)
                         }
                     }
                     .listRowBackground(Color.darkBackground)
